@@ -405,6 +405,9 @@ for key in ${!READER_WRITERS[@]}; do
    ADDITIONAL_OPTS=-Dsecor.file.reader.writer.factory=${READER_WRITERS[${key}]}
    echo "********************************************************"
    echo "Running tests for Message Type: ${MESSAGE_TYPE} and ReaderWriter: ${READER_WRITERS[${key}]}"
+   if [ ${key} = "json" ]; then
+       ADDITIONAL_OPTS="${ADDITIONAL_OPTS} -Dsecor.upload_offset_file=true"
+   fi
    post_and_verify_test
    if [ ${MESSAGE_TYPE} = "binary" ]; then
        # Testing finalizer in partition mode
